@@ -2,15 +2,34 @@ import logo from './logo.svg';
 import {useState} from 'react'
 import './App.css';
 import LoginForm from './componets/LoginForm';
+import Notify from './componets/Notify'
+import { useApolloClient } from '@apollo/client';
+import RegisterForm from './componets/RegisterForm';
 
 function App() {
+  const [errorMessage, setErrorMessage] = useState(null);
   const [token, setToken] = useState(null);
+  const client = useApolloClient()
+
+  const handleErrMessages = (message) => {
+    setErrorMessage(message)
+    setTimeout(() => {
+      setErrorMessage(null)
+    }, 3000);
+  }
+
+  const logout = ()=>{
+    setToken(null)
+    localStorage.clear()
+    client.resetStore()
+  }
 
   if(!token){
     return (
-
       <div className="App">
-        <LoginForm />
+        <Notify message={errorMessage}/>
+        {/* <LoginForm setToken={setToken} setError={handleErrMessages}/> */}
+        <RegisterForm setError={errorMessage} />
       </div>
     )     
   }
@@ -29,6 +48,7 @@ function App() {
         >
           Learn React
         </a>
+        <button onClick={logout}>Logout</button>
       </header>
     </div>
   );

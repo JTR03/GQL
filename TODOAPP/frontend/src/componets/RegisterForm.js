@@ -1,10 +1,22 @@
+import { useMutation } from "@apollo/client";
 import { useState } from "react";
+import { CREATE_USER } from "../helpers/queries";
 
-const RegisterForm = () => {
+const RegisterForm = ({setError}) => {
     const [username, setUsername] = useState('');
+    const [register] = useMutation(CREATE_USER,{
+      onError: (error) => {
+        setError(error.graphQLErrors[0].message)
+      }
+    })
+
+    const submit = (e)=>{
+      e.preventDefault()
+      register({variables:{username}})
+    }
   return (
     <div>
-        <form>
+        <form onSubmit={submit}>
             <div>
                 Username: <input value={username} onChange={({target}) => setUsername(target.value)}/>
             </div>
