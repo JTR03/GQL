@@ -6,6 +6,7 @@ const { GraphQLError } = require('graphql')
 const mongoose = require('mongoose')
 mongoose.set('strictQuery',false)
 const User = require('./models/user')
+const Activity = require('./models/activities')
 require('dotenv').config()
 const MONGO_URI = process.env.MONGO_URI
 
@@ -19,15 +20,23 @@ mongoose.connect(MONGO_URI).then(()=>{
 const typeDefs = `
     type User{
         username: String!
+        activities: [Activity!]!
         id: ID!
     }
 
     type Token{
         value: String!
+        
+    }
+
+    type Activity{
+        task: String
+        id:ID!
     }
 
     type Query {
         me: User
+        allAct: [Activity]
     }
 
     type Mutation{
@@ -36,12 +45,18 @@ const typeDefs = `
             username: String! 
             password: String!
             ): Token
+        createAct(
+            task: String!
+        ):Activity
+        
     }
 `
 
 const resolvers ={
     Query: {
-        me: (root,args,{currentUser}) => currentUser
+        me: (root,args, context) => {
+            return context.currentUser
+          },
     },
     Mutation: {
         createUser: async(root, args) =>{
@@ -66,8 +81,7 @@ const resolvers ={
             if(!user || args.password !== 'secret'){
                 throw new GraphQLError('Invalid Credentials',{
                     extensions: {
-                        code: 'BAD_USER_INPUT',
-                        invaligArgs: args.name,
+                        code: 'BAD_USER_INPUT'
                     }
                 })
             }
@@ -77,6 +91,30 @@ const resolvers ={
             }
             return {value: jwt.sign(userToken,process.env.JWT_SECRET)}
         
+        },
+        createAct: async(root,args,{currentUser})=>{
+            const task = new User({activities: args.task})
+            if(!currentUser){
+                throw new GraphQLError('Please login',{
+                    extensions:{
+                        code: 'BAD_USER_INPUT'
+                    }
+                })
+            }
+
+            try {
+                currentUser.activities = currentUser.activities.concat(task)
+                await currentUser.save()
+            } catch (error) {
+                throw new GraphQLError(`Could not save task because ${error}`,{
+                    extensions:{
+                        code: 'BAD_USER_INPUT',
+                        invalidArgs: args.name,
+                        error
+                    }
+                })
+            }
+            return task
         }
     }
 }

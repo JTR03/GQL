@@ -7,9 +7,9 @@ const schema = new mongoose.Schema({
         required: true,
         minLength: 5,
         unique: true
-    }
+    },
+    activities: [String]
 })
 
 mongoose.plugin(uniqueValidator)
-
 module.exports = mongoose.model('User', schema)

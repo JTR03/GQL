@@ -28,7 +28,7 @@ function App() {
     return (
       <div className="App">
         <Notify message={errorMessage}/>
-        {/* <LoginForm setToken={setToken} setError={handleErrMessages}/> */}
+        <LoginForm setToken={setToken} setError={handleErrMessages}/>
         <RegisterForm setError={errorMessage} />
       </div>
     )     
