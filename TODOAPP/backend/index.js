@@ -73,6 +73,7 @@ const resolvers ={
                     }
                 })
             }
+            return user
         },
 
         login: async (root, args) => {
