@@ -14,6 +14,7 @@ const AddTasks = ({ setErr }) => {
   const submit = (e) => {
     e.preventDefault();
     addTask({ variables: { task } });
+    setTask("");
   };
   return (
     <div>

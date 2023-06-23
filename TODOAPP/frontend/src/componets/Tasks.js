@@ -1,12 +1,19 @@
 import React from "react";
+import EditTask from "./EditTask";
+
 
 const Tasks = ({ tasks }) => {
+  
+ 
+
+  
   return (
-    <ul>
+    <>
       {tasks.map((t) => (
-        <li key={t.id}>{t.task}</li>
+        // <li key={t.id}>{t.task}</li>
+        <EditTask key={t.id} val={t.task} id={t.id}/>
       ))}
-    </ul>
+    </>
   );
 };
 

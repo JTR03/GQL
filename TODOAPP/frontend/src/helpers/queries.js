@@ -34,3 +34,11 @@ export const ADD_TASK = gql`
     }
   }
 `;
+
+export const EDIT_TASK = gql `
+  mutation editTask($id: String!, $task: String!){
+    editTask(id: $id, task: $task){
+      task
+    }
+  }
+`

@@ -40,19 +40,21 @@ function App() {
   if (result.loading) {
     return <div className="App-header">Loading...</div>;
   }
-  return (
-    <div className="App">
-      {/* <header className="App-header"> */}
-      {/* <p className="App-logo">
+  if (result.data) {
+    return (
+      <div className="App">
+        {/* <header className="App-header"> */}
+        {/* <p className="App-logo">
           {result.data.me.activities}
         </p> */}
-      <Notify message={errorMessage} />
-      <AddTasks setErr={handleErrMessages} />
-      <Tasks tasks={result.data.me.activities} />
-      <button onClick={logout}>Logout</button>
-      {/* </header> */}
-    </div>
-  );
+        <Notify message={errorMessage} />
+        <AddTasks setErr={handleErrMessages} />
+        <Tasks tasks={result.data.me.activities} />
+        <button onClick={logout}>Logout</button>
+        {/* </header> */}
+      </div>
+    );
+  }
 }
 
 export default App;

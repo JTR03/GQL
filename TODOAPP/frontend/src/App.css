@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+textarea {
+  resize: none;
+  overflow: hidden;
+  min-height: 14px;
+  max-height: 100px;
+}
+.edit {
+  background-color: transparent;
+  border: 0;
+  padding: 8px;
+}
+.edit:hover {
+  background-color: #d3d3d3;
+  cursor: pointer;
+}

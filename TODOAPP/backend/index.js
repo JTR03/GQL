@@ -50,6 +50,10 @@ const typeDefs = `
         createAct(
             task: String!
         ):Activity 
+        editTask(
+            id: String!
+            task: String!
+        ):Activity
     }
 `;
 
@@ -120,6 +124,33 @@ const resolvers = {
       }
       return task;
     },
+    editTask: async (root,args,{currentUser})=>{
+        const task = await Activity.findById(args.id)
+
+        if(!task || !currentUser){
+            throw new GraphQLError('invalid request',{
+                extensions:{
+                    code: 'BAD_USER_INPUT'
+                }
+            })
+        }
+
+        task.task = args.task
+        try {
+            await task.save()
+            console.log('task edited')
+        } catch (error) {
+            console.log('task not edit');
+            throw new GraphQLError(`Could not edit task because ${error}`,{
+                extensions: {
+                    code: 'BAD_USER_INPUT',
+                    invalidArgs: args.name,
+                    error
+                }
+            })
+        }
+        return task
+    }
   },
 };
 
