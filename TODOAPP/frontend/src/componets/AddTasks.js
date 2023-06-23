@@ -20,8 +20,8 @@ const AddTasks = ({ setErr }) => {
     <div>
       <form onSubmit={submit}>
         ADD TASK:{" "}
-        <input value={task} onChange={({ target }) => setTask(target.value)} />
-        <button type="submit">Submit</button>
+        <input className="add" value={task} onChange={({ target }) => setTask(target.value)} />
+        <button type="submit">Add</button>
       </form>
     </div>
   );

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../App.css";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../helpers/queries";
+import { Link } from "react-router-dom";
 
 const LoginForm = ({ setToken, setError }) => {
   const [username, setUsername] = useState("");
@@ -25,7 +26,7 @@ const LoginForm = ({ setToken, setError }) => {
     login({ variables: { username, password } });
   };
   return (
-    <div className="App-header">
+    <div>
       <h2>Login</h2>
       <form onSubmit={submit}>
         <div>
@@ -44,6 +45,7 @@ const LoginForm = ({ setToken, setError }) => {
           />
         </div>
         <button type="submit">Login</button>
+        <Link className="link" to={'/register'}>Register here</Link>
       </form>
     </div>
   );

@@ -35,10 +35,17 @@ export const ADD_TASK = gql`
   }
 `;
 
-export const EDIT_TASK = gql `
-  mutation editTask($id: String!, $task: String!){
-    editTask(id: $id, task: $task){
+export const EDIT_TASK = gql`
+  mutation editTask($id: String!, $task: String!) {
+    editTask(id: $id, task: $task) {
       task
     }
   }
-`
+`;
+export const DELETE_TASK = gql`
+  mutation deleteTask($id: String!) {
+    deleteTask(id: $id) {
+      task
+    }
+  }
+`;

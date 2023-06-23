@@ -38,7 +38,6 @@ const typeDefs = `
 
     type Query {
         me: User
-        allAct: [Activity]
     }
 
     type Mutation{
@@ -53,6 +52,9 @@ const typeDefs = `
         editTask(
             id: String!
             task: String!
+        ):Activity
+        deleteTask(
+          id: String!
         ):Activity
     }
 `;
@@ -124,33 +126,43 @@ const resolvers = {
       }
       return task;
     },
-    editTask: async (root,args,{currentUser})=>{
-        const task = await Activity.findById(args.id)
+    editTask: async (root, args, { currentUser }) => {
+      const task = await Activity.findById(args.id);
 
-        if(!task || !currentUser){
-            throw new GraphQLError('invalid request',{
-                extensions:{
-                    code: 'BAD_USER_INPUT'
-                }
-            })
-        }
+      if (!task || !currentUser) {
+        throw new GraphQLError("invalid request", {
+          extensions: {
+            code: "BAD_USER_INPUT",
+          },
+        });
+      }
 
-        task.task = args.task
-        try {
-            await task.save()
-            console.log('task edited')
-        } catch (error) {
-            console.log('task not edit');
-            throw new GraphQLError(`Could not edit task because ${error}`,{
-                extensions: {
-                    code: 'BAD_USER_INPUT',
-                    invalidArgs: args.name,
-                    error
-                }
-            })
-        }
-        return task
-    }
+      task.task = args.task;
+      try {
+        await task.save();
+        console.log("task edited");
+      } catch (error) {
+        console.log("task not edit");
+        throw new GraphQLError(`Could not edit task because ${error}`, {
+          extensions: {
+            code: "BAD_USER_INPUT",
+            invalidArgs: args.name,
+            error,
+          },
+        });
+      }
+      return task;
+    },
+    deleteTask: async (root, args, { currentUser }) => {
+      if (!args.id || !currentUser) {
+        throw new GraphQLError("invalid request", {
+          extensions: {
+            code: "BAD_USER_INPUT",
+          },
+        });
+      }
+      await Activity.findByIdAndRemove(args.id);
+    },
   },
 };
 

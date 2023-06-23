@@ -24,10 +24,6 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -36,11 +32,13 @@
     transform: rotate(360deg);
   }
 }
-textarea {
-  resize: none;
-  overflow: hidden;
-  min-height: 14px;
-  max-height: 100px;
+.add{
+  padding: 5px;
+  margin: 5px;
+}
+button{
+  padding: 4px 12px; 
+  
 }
 .edit {
   background-color: transparent;
@@ -50,4 +48,10 @@ textarea {
 .edit:hover {
   background-color: #d3d3d3;
   cursor: pointer;
+}
+
+.link{
+  font-size: 14px;
+  text-decoration: none;
+  margin: 10px;
 }

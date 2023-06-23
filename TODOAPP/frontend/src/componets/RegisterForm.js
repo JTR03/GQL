@@ -1,8 +1,10 @@
 import { useMutation } from "@apollo/client";
 import { useState } from "react";
 import { CREATE_USER } from "../helpers/queries";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = ({ setError }) => {
+  const navigate = useNavigate()
   const [username, setUsername] = useState("");
   const [register] = useMutation(CREATE_USER, {
     onError: (error) => {
@@ -13,6 +15,8 @@ const RegisterForm = ({ setError }) => {
   const submit = (e) => {
     e.preventDefault();
     register({ variables: { username } });
+    setUsername("")
+    navigate('/')
   };
   return (
     <div>

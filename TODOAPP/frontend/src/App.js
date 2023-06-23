@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import { useState } from "react";
 import "./App.css";
 import LoginForm from "./componets/LoginForm";
@@ -8,6 +7,7 @@ import RegisterForm from "./componets/RegisterForm";
 import { GET_TASK } from "./helpers/queries";
 import Tasks from "./componets/Tasks";
 import AddTasks from "./componets/AddTasks";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   const [errorMessage, setErrorMessage] = useState(null);
@@ -31,9 +31,21 @@ function App() {
   if (!token) {
     return (
       <div className="App">
-        <Notify message={errorMessage} />
-        <LoginForm setToken={setToken} setError={handleErrMessages} />
-        <RegisterForm setError={errorMessage} />
+        <div className="App-header">
+          <Notify message={errorMessage} />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <LoginForm setToken={setToken} setError={handleErrMessages} />
+              }
+            />
+            <Route
+              path="/register"
+              element={<RegisterForm setError={errorMessage} />}
+            />
+          </Routes>
+        </div>
       </div>
     );
   }
@@ -43,15 +55,12 @@ function App() {
   if (result.data) {
     return (
       <div className="App">
-        {/* <header className="App-header"> */}
-        {/* <p className="App-logo">
-          {result.data.me.activities}
-        </p> */}
-        <Notify message={errorMessage} />
-        <AddTasks setErr={handleErrMessages} />
-        <Tasks tasks={result.data.me.activities} />
-        <button onClick={logout}>Logout</button>
-        {/* </header> */}
+        <div className="App-header">
+          <Notify message={errorMessage} />
+          <AddTasks setErr={handleErrMessages} />
+          <Tasks tasks={result.data.me.activities} />
+          <button onClick={logout}>Logout</button>
+        </div>
       </div>
     );
   }
