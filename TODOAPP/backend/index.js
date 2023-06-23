@@ -94,7 +94,7 @@ const resolvers ={
         
         },
         createAct: async(root,args,{currentUser})=>{
-            const task = new User({activities: args.task})
+            const task = new Activity({...args})
             if(!currentUser){
                 throw new GraphQLError('Please login',{
                     extensions:{
@@ -104,9 +104,12 @@ const resolvers ={
             }
 
             try {
+                await task.save()
                 currentUser.activities = currentUser.activities.concat(task)
                 await currentUser.save()
+                console.log('task saved');
             } catch (error) {
+                console.log('task not saved');
                 throw new GraphQLError(`Could not save task because ${error}`,{
                     extensions:{
                         code: 'BAD_USER_INPUT',
@@ -133,7 +136,7 @@ startStandaloneServer(server,{
             const decodeToken = jwt.verify(
                 auth.substring(7), process.env.JWT_SECRET
             )
-            const currentUser = await User.findById(decodeToken.id)
+            const currentUser = await User.findById(decodeToken.id).populate('activities')
             return {currentUser}
         }
     }

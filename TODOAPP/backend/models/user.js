@@ -8,7 +8,10 @@ const schema = new mongoose.Schema({
         minLength: 5,
         unique: true
     },
-    activities: [String]
+    activities: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Activity"
+    }]
 })
 
 mongoose.plugin(uniqueValidator)

@@ -3,13 +3,16 @@ import {useState} from 'react'
 import './App.css';
 import LoginForm from './componets/LoginForm';
 import Notify from './componets/Notify'
-import { useApolloClient } from '@apollo/client';
+import { useApolloClient, useQuery } from '@apollo/client';
 import RegisterForm from './componets/RegisterForm';
+import { GET_TASK } from './helpers/queries';
+import Tasks from './componets/Tasks';
 
 function App() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [token, setToken] = useState(null);
   const client = useApolloClient()
+  const result = useQuery(GET_TASK)
 
   const handleErrMessages = (message) => {
     setErrorMessage(message)
@@ -33,23 +36,23 @@ function App() {
       </div>
     )     
   }
+  if(result.loading){
+    return(
+      <div className='App-header'>
+        Loading...
+      </div>
+    )
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      {/* <header className="App-header"> */}
+        {/* <p className="App-logo">
+          {result.data.me.activities}
+        </p> */}
+        
+        <Tasks tasks={result.data.me.activities} />
         <button onClick={logout}>Logout</button>
-      </header>
+      {/* </header> */}
     </div>
   );
 }

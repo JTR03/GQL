@@ -15,3 +15,21 @@ export const LOGIN = gql `
         }
     }
 `
+
+export const GET_TASK = gql `
+    query myTasks{
+        me{
+            activities{
+                task
+            }
+        }
+    }
+`
+
+export const ADD_TASK = gql `
+    mutation addTask($task: String!){
+        createAct(task: $task){
+            task
+        }
+    }
+`
