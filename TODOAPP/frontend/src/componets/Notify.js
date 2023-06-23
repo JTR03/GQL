@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
-const Notify = ({message}) => {
+const Notify = ({ message }) => {
   return (
-    <div style={{color: 'red'}}>
+    <div style={{ color: "red" }}>
       <p>{message}</p>
     </div>
-  )
-}
+  );
+};
 
-export default Notify
+export default Notify;
