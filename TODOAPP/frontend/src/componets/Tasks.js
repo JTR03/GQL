@@ -5,9 +5,7 @@ const Tasks = ({tasks}) => {
     <ul>
 
       {tasks.map(t => 
-        
-            <li>{t.task}</li>
-        
+            <li key={t.id}>{t.task}</li>
       )}
     </ul>
   )

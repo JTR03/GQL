@@ -21,6 +21,7 @@ export const GET_TASK = gql `
         me{
             activities{
                 task
+                id
             }
         }
     }

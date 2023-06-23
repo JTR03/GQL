@@ -7,6 +7,7 @@ import { useApolloClient, useQuery } from '@apollo/client';
 import RegisterForm from './componets/RegisterForm';
 import { GET_TASK } from './helpers/queries';
 import Tasks from './componets/Tasks';
+import AddTasks from './componets/AddTasks';
 
 function App() {
   const [errorMessage, setErrorMessage] = useState(null);
@@ -49,7 +50,8 @@ function App() {
         {/* <p className="App-logo">
           {result.data.me.activities}
         </p> */}
-        
+        <Notify message={errorMessage} />
+        <AddTasks setErr={handleErrMessages}/>
         <Tasks tasks={result.data.me.activities} />
         <button onClick={logout}>Logout</button>
       {/* </header> */}
