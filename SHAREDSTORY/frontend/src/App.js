@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import {useState} from 'react'
-import './App.css';
-import LoginForm from './components/loginForm';
-import Notify from './components/Notify';
-import CreateUser from './components/CreateUser';
-import { Route, Routes } from 'react-router-dom';
+import { useState } from "react";
+import "./App.css";
+import LoginForm from "./components/loginForm";
+import Notify from "./components/Notify";
+import CreateUser from "./components/CreateUser";
+import { Route, Routes } from "react-router-dom";
+import Stories from "./components/Stories";
+import AddToStory from "./components/AddToStory";
 
 function App() {
   const [token, setToken] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
 
   const handleErrMessage = (message) => {
-    setErrorMessage(message)
+    setErrorMessage(message);
     setTimeout(() => {
-      setErrorMessage(null)
+      setErrorMessage(null);
     }, 3000);
-  }
+  };
 
-  if(!token){
+  if (!token) {
     return (
       <div className="App-header">
         <Notify message={errorMessage} />
@@ -36,11 +37,10 @@ function App() {
       </div>
     );
   }
-  
+
   return (
-    
     <div className="App">
-      <header className="App-header">
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -53,7 +53,11 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
+      <Stories />
+      <Routes>
+        <Route path="/add" element={<AddToStory setErr={handleErrMessage} />} />
+      </Routes>
     </div>
   );
 }

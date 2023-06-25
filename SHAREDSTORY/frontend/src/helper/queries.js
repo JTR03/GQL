@@ -15,3 +15,21 @@ export const LOGIN = gql`
     }
   }
 `;
+
+export const GET_STORIES = gql`
+  query getAll {
+    allStories {
+      plot
+      character
+      id
+    }
+  }
+`;
+export const ADD_STORY = gql`
+  mutation addToStory($character: String!, $plot: String!) {
+    addStory(character: $character, plot: $plot) {
+      character
+      plot
+    }
+  }
+`;
