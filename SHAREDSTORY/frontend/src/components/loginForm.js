@@ -1,6 +1,7 @@
 import {useState,useEffect} from 'react'
 import {useMutation} from '@apollo/client'
 import { LOGIN } from '../helper/queries';
+import { Link } from 'react-router-dom';
 
 const LoginForm = ({setToken, setErr}) => {
     const [username, setUsername] = useState('');
@@ -35,6 +36,7 @@ const LoginForm = ({setToken, setErr}) => {
             Password: <input value={password} onChange={({target}) => setPassword(target.value)} />
         </div>
         <button type='submit'>Login</button>
+        <Link to={'/register'}>register</Link>
       </form>
     </div>
   )

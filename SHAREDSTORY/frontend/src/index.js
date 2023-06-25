@@ -9,6 +9,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import App from "./App";
+import {BrowserRouter as Router} from "react-router-dom"
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("sharedStory-token");
@@ -32,6 +33,8 @@ const client = new ApolloClient({
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ApolloProvider client={client}>
-    <App />
+    <Router>
+      <App />
+    </Router> 
   </ApolloProvider>
 );

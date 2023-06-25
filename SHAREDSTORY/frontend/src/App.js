@@ -3,6 +3,8 @@ import {useState} from 'react'
 import './App.css';
 import LoginForm from './components/loginForm';
 import Notify from './components/Notify';
+import CreateUser from './components/CreateUser';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
   const [token, setToken] = useState(null);
@@ -16,12 +18,23 @@ function App() {
   }
 
   if(!token){
-    return(
-      <div>
+    return (
+      <div className="App-header">
         <Notify message={errorMessage} />
-        <LoginForm setToken={setToken} setErr={handleErrMessage}/>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <LoginForm setToken={setToken} setErr={handleErrMessage} />
+            }
+          />
+          <Route
+            path="/register"
+            element={<CreateUser setErr={handleErrMessage} />}
+          />
+        </Routes>
       </div>
-    )
+    );
   }
   
   return (
