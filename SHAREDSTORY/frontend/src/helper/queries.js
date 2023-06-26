@@ -49,3 +49,20 @@ export const REMOVE_STORY = gql`
     }
   }
 `;
+
+export const SELECT_TOPIC = gql `
+  query getAllTopics{
+    allTopics{
+      topic
+      id
+    }
+  }
+`
+
+export const ADD_TOPIC = gql `
+  mutation addToTopics($topic: String!){
+    addTopic(topic: $topic){
+      topic
+    }
+  }
+`

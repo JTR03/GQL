@@ -6,6 +6,8 @@ import CreateUser from "./components/CreateUser";
 import { Route, Routes } from "react-router-dom";
 import Stories from "./components/Stories";
 import AddToStory from "./components/AddToStory";
+import SelectTopic from "./components/SelectTopic";
+import AddTopic from "./components/AddTopic";
 
 function App() {
   const [token, setToken] = useState(null);
@@ -54,9 +56,12 @@ function App() {
           Learn React
         </a>
       </header> */}
-      <Stories setErr={handleErrMessage}/>
+      
       <Routes>
         <Route path="/add" element={<AddToStory setErr={handleErrMessage} />} />
+        <Route path="/" element={<SelectTopic />} />
+        <Route path="/stories" element={<Stories setErr={handleErrMessage}/>} />
+        <Route path="/addTopic" element={<AddTopic setErr={handleErrMessage} />} />
       </Routes>
     </div>
   );
