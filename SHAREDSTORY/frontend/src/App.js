@@ -54,7 +54,7 @@ function App() {
           Learn React
         </a>
       </header> */}
-      <Stories />
+      <Stories setErr={handleErrMessage}/>
       <Routes>
         <Route path="/add" element={<AddToStory setErr={handleErrMessage} />} />
       </Routes>

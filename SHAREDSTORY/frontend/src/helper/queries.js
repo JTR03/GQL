@@ -33,3 +33,19 @@ export const ADD_STORY = gql`
     }
   }
 `;
+
+export const EDIT_STORY = gql`
+  mutation storyEdit($plot: String!, $id: String!) {
+    editStory(plot: $plot, id: $id) {
+      plot
+    }
+  }
+`;
+
+export const REMOVE_STORY = gql`
+  mutation storyRemove($id: String!) {
+    removeStory(id: $id) {
+      plot
+    }
+  }
+`;

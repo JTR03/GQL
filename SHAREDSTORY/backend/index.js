@@ -55,6 +55,15 @@ const typeDefs = `
             plot: String!
             character: String!
         ): Story
+
+        editStory(
+            plot: String!
+            id: String!
+        ): Story
+
+        removeStory(
+            id: String!
+        ): Story
     }
 `
 
@@ -127,7 +136,56 @@ const resolvers = {
                 )
             }
             return mypart
+        },
+        editStory: async (root,args,{currentUser}) =>{
+            const editStory = await Story.findById(args.id)
+
+            if(!currentUser){
+                throw new GraphQLError('Invalid request',{
+                    extensions: {
+                        code: 'BAD_USER_INPUT'
+                    }
+                })
+            }
+
+            editStory.plot = args.plot
+            try {
+                await editStory.save()
+                console.log('story edited');
+            } catch (error) {
+                console.log('failed to edit');
+                throw new GraphQLError(`Could not edit story ${error}`,{
+                    extensions:{
+                        code: 'BAD_USER_INPUT',
+                        invalidArgs: args.name,
+                        error
+                    }
+                })
+            }
+            return editStory
+        },
+        removeStory:async (root,args,{currentUser}) =>{
+            if(!currentUser){
+                throw new GraphQLError('Cannot delete story you did not create',{
+                    extensions:{
+                        code: 'BAD_USER_INPUT'
+                    }
+                })
+            }
+            try {
+                await Story.findByIdAndRemove(args.id)
+                console.log('deleted successfully');
+            } catch (error) {
+                throw new GraphQLError('Could not delete story',{
+                    extensions:{
+                        code: 'BAD_USER_INPUT',
+                        invalidArgs: args.name,
+                        error
+                    }
+                })
+            }
         }
+
     }
 }
 
