@@ -6,6 +6,10 @@ const schema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
+    },
+    stories: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Story'
     }
 })
 

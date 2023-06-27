@@ -34,6 +34,7 @@ const typeDefs = `
     type Topic{
         topic: String!
         id: ID!
+        stories: [Story!]!
     }
 
     type Story{
