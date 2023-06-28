@@ -24,13 +24,16 @@ const CreateUser = ({ setErr }) => {
     <div>
       <form onSubmit={submit}>
         <div>
-          Username:{" "}
           <input
+            className="input"
+            placeholder="Username"
             value={username}
             onChange={({ target }) => setUsername(target.value)}
           />
         </div>
-        <button type="submit">Register</button>
+        <button className="button" type="submit">
+          Register
+        </button>
       </form>
     </div>
   );

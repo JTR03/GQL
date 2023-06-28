@@ -20,9 +20,9 @@ const SelectTopic = ({setTopic}) => {
         {result.data.allTopics.map((t) => {
           return (
             <div key={t.id}>
-              <button onClick={()=>onClick(t.topic)}
-               
-                >{t.topic}</button>
+              <button className="button" onClick={() => onClick(t.topic)}>
+                {t.topic}
+              </button>
             </div>
           );
         })}

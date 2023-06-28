@@ -9,6 +9,7 @@ import AddToStory from "./components/AddToStory";
 import SelectTopic from "./components/SelectTopic";
 import AddTopic from "./components/AddTopic";
 import StoriesByTopic from "./components/StoriesByTopic";
+import Header from "./components/Header";
 
 function App() {
   const [token, setToken] = useState(null);
@@ -27,7 +28,7 @@ function App() {
 
   if (!token) {
     return (
-      <div className="App-header">
+      <div className="App">
         <Notify message={errorMessage} />
         <Routes>
           <Route
@@ -47,10 +48,8 @@ function App() {
 
   return (
     <div className="App">
+      <Header />
       <Notify message={errorMessage} />
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-      </header> */}
 
       <Routes>
         <Route
