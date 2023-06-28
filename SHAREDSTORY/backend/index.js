@@ -38,8 +38,8 @@ const typeDefs = `
     }
 
     type Story{
+        topic: String!
         plot: String!
-        character: String!
         id: ID!
     }
 
@@ -62,7 +62,7 @@ const typeDefs = `
 
         addStory(
             plot: String!
-            character: String!
+            topic: String!
         ): Story
 
         editStory(

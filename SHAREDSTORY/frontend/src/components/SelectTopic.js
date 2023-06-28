@@ -1,11 +1,15 @@
 import { useQuery } from "@apollo/client";
-import React from "react";
 import { SELECT_TOPIC } from "../helper/queries";
 import { Link, useNavigate } from "react-router-dom";
 
-const SelectTopic = () => {
+const SelectTopic = ({setTopic}) => {
   const navigate = useNavigate()
   const result = useQuery(SELECT_TOPIC);
+
+  const onClick = (topic) =>{
+    navigate(topic);
+    setTopic(topic)
+  }
 
   if (result.loading) {
     return <div>Loading...</div>;
@@ -15,8 +19,10 @@ const SelectTopic = () => {
       <div>
         {result.data.allTopics.map((t) => {
           return (
-            <div>
-              <button onClick={()=>navigate('/stories')}>{t.topic}</button>
+            <div key={t.id}>
+              <button onClick={()=>onClick(t.topic)}
+               
+                >{t.topic}</button>
             </div>
           );
         })}

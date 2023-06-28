@@ -5,7 +5,7 @@ const schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    character: {
+    topic: {
         type: String,
         required: true
     }

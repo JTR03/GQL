@@ -20,15 +20,13 @@ export const GET_STORIES = gql`
   query getAll {
     allStories {
       plot
-      character
       id
     }
   }
 `;
 export const ADD_STORY = gql`
-  mutation addToStory($character: String!, $plot: String!) {
-    addStory(character: $character, plot: $plot) {
-      character
+  mutation addToStory($topic: String!, $plot: String!) {
+    addStory(topic: $topic, plot: $plot) {
       plot
     }
   }
