@@ -1,8 +1,10 @@
 import { useMutation } from "@apollo/client";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ADD_STORY, GET_STORIES } from "../helper/queries";
 
 const AddToStory = ({topic,setErr }) => {
+  const navigate = useNavigate()
   const [story, setStory] = useState("");
   const [addStory] = useMutation(ADD_STORY, {
     onError: (error) => {
@@ -20,6 +22,7 @@ const AddToStory = ({topic,setErr }) => {
     e.preventDefault();
     addStory({ variables: { topic, plot: story } });
     setStory("");
+    navigate(`/${topic}`)
   };
 
   return (

@@ -22,7 +22,6 @@ const Stories = ({ setErr }) => {
         {result.data.allStories.map((s) => {
           return (
             <div key={s.id}>
-              <h5>{s.character}</h5>
               {editMode ? (
                 <EditStoy
                   id={s.id}

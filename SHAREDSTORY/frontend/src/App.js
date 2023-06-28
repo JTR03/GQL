@@ -3,40 +3,12 @@ import "./App.css";
 import LoginForm from "./components/loginForm";
 import Notify from "./components/Notify";
 import CreateUser from "./components/CreateUser";
-import { Route, Routes, useMatch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Stories from "./components/Stories";
 import AddToStory from "./components/AddToStory";
 import SelectTopic from "./components/SelectTopic";
 import AddTopic from "./components/AddTopic";
 import StoriesByTopic from "./components/StoriesByTopic";
-
-const stories = [
-  {
-    id: 1,
-    topic: "Love",
-    plot: "miss independent can be loved as well",
-  },
-  {
-    id: 2,
-    topic: "Love",
-    plot: "not everyone can handle miss independent though",
-  },
-  {
-    id: 3,
-    topic: "Love",
-    plot: "The man who loves her will surely have a bliss",
-  },
-  {
-    id: 4,
-    topic: "Lust",
-    plot: "To Lust is to hurt yourself",
-  },
-  {
-    id: 5,
-    topic: "Lust",
-    plot: "More so it harms the very person who you lust",
-  },
-];
 
 function App() {
   const [token, setToken] = useState(null);
@@ -50,8 +22,8 @@ function App() {
     }, 3000);
   };
 
-  const match = useMatch('/:topic')
-  const storiesByTopic = match ? stories.filter(s => s.topic === match.params.topic): null
+  // const match = useMatch('/:topic')
+  // const storiesByTopic = match ? stories.filter(s => s.topic === match.params.topic): null
 
   if (!token) {
     return (
@@ -75,17 +47,26 @@ function App() {
 
   return (
     <div className="App">
-      <Notify message={errorMessage}/>
+      <Notify message={errorMessage} />
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
       </header> */}
-      
+
       <Routes>
-        <Route path="/add" element={<AddToStory topic={topic} setErr={handleErrMessage} />} />
-        <Route path="/" element={<SelectTopic setTopic={setTopic}/>} />
-        <Route path="/:topic" element={<StoriesByTopic topic={topic} stories={storiesByTopic}/>}/>
-        <Route path="/stories" element={<Stories setErr={handleErrMessage}/>} />
-        <Route path="/addTopic" element={<AddTopic setErr={handleErrMessage} />} />
+        <Route
+          path="/add"
+          element={<AddToStory topic={topic} setErr={handleErrMessage} />}
+        />
+        <Route path="/" element={<SelectTopic setTopic={setTopic} />} />
+        <Route path="/:topic" element={<StoriesByTopic topic={topic} />} />
+        <Route
+          path="/stories"
+          element={<Stories setErr={handleErrMessage} />}
+        />
+        <Route
+          path="/addTopic"
+          element={<AddTopic setErr={handleErrMessage} />}
+        />
       </Routes>
     </div>
   );

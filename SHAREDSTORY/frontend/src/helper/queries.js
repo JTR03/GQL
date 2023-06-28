@@ -64,3 +64,11 @@ export const ADD_TOPIC = gql `
     }
   }
 `
+export const STORIES_BY_TOPIC = gql `
+  query topicStory($topic: String!){
+    storiesByTopic(topic: $topic){
+      plot
+      id
+    }
+  }
+`

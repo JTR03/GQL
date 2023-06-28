@@ -47,6 +47,7 @@ const typeDefs = `
         allStories: [Story!]!
         allTopics: [Topic!]!
         findByTopic(topic: String!):Topic
+        storiesByTopic(topic: String!): [Story]
         me: User
     }
 
@@ -85,6 +86,7 @@ const resolvers = {
     allStories: async () => Story.find({}),
     allTopics: async () => Topic.find({}),
     findByTopic: async (root, args) => Topic.findOne({ topic: args.topic }),
+    storiesByTopic: async (root,args) => Story.find({topic: args.topic}),
     me: async (root, args, { currentUser }) => currentUser,
   },
   Mutation: {
