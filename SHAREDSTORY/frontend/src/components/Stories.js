@@ -30,12 +30,12 @@ const Stories = ({ setErr }) => {
                   setToView={handleEditMode}
                 />
               ) : (
-                <ViewStory plot={s.plot} setToEdit={handleEditMode} id={s.id} />
+                <ViewStory tag={s.topic} plot={s.plot} setToEdit={handleEditMode} id={s.id} />
               )}
             </div>
           );
         })}
-        <Link to={"/add"}>Add To Story</Link>
+        {/* <Link to={"/add"}>Add To Story</Link> */}
       </div>
     );
   }

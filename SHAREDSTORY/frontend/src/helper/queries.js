@@ -20,6 +20,7 @@ export const GET_STORIES = gql`
   query getAll {
     allStories {
       plot
+      topic
       id
     }
   }

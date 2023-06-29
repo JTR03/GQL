@@ -3,24 +3,34 @@ import "./App.css";
 import LoginForm from "./components/loginForm";
 import Notify from "./components/Notify";
 import CreateUser from "./components/CreateUser";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Stories from "./components/Stories";
 import AddToStory from "./components/AddToStory";
 import SelectTopic from "./components/SelectTopic";
 import AddTopic from "./components/AddTopic";
 import StoriesByTopic from "./components/StoriesByTopic";
 import Header from "./components/Header";
+import { useApolloClient } from "@apollo/client";
 
 function App() {
+  const navigate = useNavigate();
   const [token, setToken] = useState(null);
   const [topic, setTopic] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+  const client = useApolloClient();
 
   const handleErrMessage = (message) => {
     setErrorMessage(message);
     setTimeout(() => {
       setErrorMessage(null);
     }, 3000);
+  };
+
+  const logout = async () => {
+    localStorage.clear();
+    setToken(null);
+    await client.resetStore();
+    navigate("/");
   };
 
   // const match = useMatch('/:topic')
@@ -48,7 +58,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      <Header logout={logout} />
       <Notify message={errorMessage} />
 
       <Routes>
