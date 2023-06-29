@@ -13,12 +13,12 @@ const EditStoy = ({ setErr, id, plot,setToView }) => {
 
   const submit = () => {
     editStory({ variables: { plot: edited, id } });
-    setToView()
+    setToView(false)
   };
 
   const onCancel = () => {
     setEdited(plot)
-    setToView()
+    setToView(false)
   }
 
   return (

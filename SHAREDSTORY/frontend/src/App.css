@@ -22,11 +22,14 @@
 }
 
 .header {
+  background-color: #282c34;
   display: flex;
+  height: 10%;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
     width: 100%;
-   top: 4%;
+   top: 0%;
     left: 0;
     position: fixed;
 }
@@ -46,14 +49,6 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-.success{
-  background-color: blue;
-}
-
-.remove{
-  color: red;
 }
 
 .input{

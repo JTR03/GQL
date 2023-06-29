@@ -73,3 +73,24 @@ export const STORIES_BY_TOPIC = gql `
     }
   }
 `
+export const MY_STORIES = gql `
+  query myContribution{
+    me{
+      stories{
+        topic
+        plot 
+        id
+      }
+    }
+  }
+`
+
+export const SEARCH =  gql `
+  query topicSearch($topic: String!){
+    storiesByTopic(topic: $topic){
+      topic
+      plot
+      id
+    }
+  }
+`

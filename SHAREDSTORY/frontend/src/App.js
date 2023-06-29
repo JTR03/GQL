@@ -8,14 +8,17 @@ import Stories from "./components/Stories";
 import AddToStory from "./components/AddToStory";
 import SelectTopic from "./components/SelectTopic";
 import AddTopic from "./components/AddTopic";
+import Search from "./components/Search";
 import StoriesByTopic from "./components/StoriesByTopic";
 import Header from "./components/Header";
 import { useApolloClient } from "@apollo/client";
+import MyStories from "./components/MyStories";
 
 function App() {
   const navigate = useNavigate();
   const [token, setToken] = useState(null);
   const [topic, setTopic] = useState(null);
+  const [search, setSearch] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
   const client = useApolloClient();
 
@@ -58,7 +61,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header logout={logout} />
+      <Header logout={logout} search={search} setSearch={setSearch} />
       <Notify message={errorMessage} />
 
       <Routes>
@@ -76,6 +79,9 @@ function App() {
           path="/addTopic"
           element={<AddTopic setErr={handleErrMessage} />}
         />
+        <Route path="/me" element={<MyStories />} />
+        <Route path="/result" element={<Search topic={search}/>} />
+        
       </Routes>
     </div>
   );
